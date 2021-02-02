@@ -13,7 +13,7 @@ import retrofit2.HttpException
 
 
 /**
- * 使用 IO 线程获取 ISource
+ * 使用 IO 线程获取 Source
  *
  * Retrofit 使用示例:
  *
@@ -34,7 +34,7 @@ suspend fun <T> httpContext(
 }
 
 /**
- * 使用调用线程获取 ISource
+ * 使用调用线程获取 Source
  */
 suspend fun <T> httpSource(
     block: suspend () -> ISource<T>
