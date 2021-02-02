@@ -5,10 +5,6 @@ package me.twc.source
  * @date 2020/11/03
  */
 
-const val SOURCE_CODE_UNKNOWN = Int.MIN_VALUE
-const val SOURCE_MSG_UNKNOWN = ""
-
-
 /**
  * 代表资源获取的状态/结果
  */
@@ -24,7 +20,7 @@ object LoadingSource : Source<Nothing>()
  */
 data class ErrorSource(
     val message: String,
-    val code: Int = Int.MIN_VALUE
+    val code: Int = SOURCE_CODE_UNKNOWN
 ) : Source<Nothing>()
 
 

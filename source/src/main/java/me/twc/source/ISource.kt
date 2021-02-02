@@ -41,6 +41,10 @@ package me.twc.source
  *
  * @see httpContext
  */
+
+const val SOURCE_CODE_UNKNOWN = Int.MIN_VALUE
+const val SOURCE_MSG_UNKNOWN = ""
+
 interface ISource<T> {
     fun getSourceCode(): Int = SOURCE_CODE_UNKNOWN
     fun getSourceMsg(): String = SOURCE_MSG_UNKNOWN
