@@ -28,3 +28,7 @@ fun <T> Source<T>.dataElseNull(): T? {
         else -> null
     }
 }
+
+fun Source<*>.isLoading(): Boolean = this is LoadingSource
+fun Source<*>.isError(): Boolean = this is ErrorSource
+fun Source<*>.isSuccess(): Boolean = this is SuccessSource
