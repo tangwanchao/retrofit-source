@@ -1,9 +1,11 @@
 package me.twc.source
 
+import android.util.Log
 import android.util.MalformedJsonException
 import com.google.gson.JsonParseException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import me.twc.source.util.logD
 import retrofit2.HttpException
 
 /**
@@ -44,20 +46,23 @@ suspend fun <T> httpSource(
     th.toSource()
 }
 
-private fun <T> Throwable.toSource(): Source<T> = when (this) {
-    is HttpException -> {
-        if (this.code() in 400 until 500) {
-            "客户端异常".errorSource()
-        } else {
-            "服务端异常".errorSource()
+private fun <T> Throwable.toSource(): Source<T> {
+    logD("RetrofitSource Throwable.toSource",th = this)
+    return when (this) {
+        is HttpException -> {
+            if (this.code() in 400 until 500) {
+                "客户端异常".errorSource()
+            } else {
+                "服务端异常".errorSource()
+            }
         }
-    }
-    is KotlinNullPointerException,
-    is JsonParseException,
-    is MalformedJsonException -> {
-        "服务端数据异常".errorSource()
-    }
-    else -> {
-        "网络异常".errorSource()
+        is KotlinNullPointerException,
+        is JsonParseException,
+        is MalformedJsonException -> {
+            "服务端数据异常".errorSource()
+        }
+        else -> {
+            "网络异常".errorSource()
+        }
     }
 }
