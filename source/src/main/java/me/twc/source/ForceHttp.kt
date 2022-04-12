@@ -10,12 +10,14 @@ import kotlinx.coroutines.delay
  */
 
 suspend fun <T> forceHttpSource(
+    delay: Long = 1000L,
     block: suspend () -> ISource<T>
-): Source<T> = forceHttp(runInIo = false, block)
+): Source<T> = forceHttp(runInIo = false, delay, block)
 
 suspend fun <T> forceHttpContext(
+    delay: Long = 1000L,
     block: suspend () -> ISource<T>
-): Source<T> = forceHttp(runInIo = true, block)
+): Source<T> = forceHttp(runInIo = true, delay, block)
 
 
 /**
@@ -25,13 +27,14 @@ suspend fun <T> forceHttpContext(
  */
 private suspend fun <T> forceHttp(
     runInIo: Boolean,
+    delay: Long = 1000L,
     block: suspend () -> ISource<T>
 ): Source<T> {
     while (true) {
-        val source = if (runInIo) httpSource(block) else httpContext(block)
+        val source = if (runInIo) httpContext(block) else httpSource(block)
         if (source is SuccessSource<T>) {
             return source
         }
-        delay(1_000L)
+        delay(delay)
     }
 }
