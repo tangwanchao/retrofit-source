@@ -25,6 +25,7 @@ object SimpleContentErrorSourceProcessor : ErrorSourceProcessor {
 
 object SimpleLoadingErrorSourceProcessor : ErrorSourceProcessor {
     override fun <T> process(view: SourceObserverView, error: ErrorSource): Pair<Boolean, T?> {
+        view.showContent()
         Toast.makeText(view.context, error.message, Toast.LENGTH_LONG).show()
         return true to null
     }
