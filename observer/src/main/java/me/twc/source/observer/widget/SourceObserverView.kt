@@ -21,7 +21,7 @@ abstract class SourceObserverView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : StateView(context, attrs, defStyleAttr) {
 
-    private var mRetryFunction: Function<Unit>? = null
+    private var mRetryFunction: (()->Unit)? = null
 
     init {
         onInflateListener = object : OnInflateListener {
@@ -31,7 +31,7 @@ abstract class SourceObserverView @JvmOverloads constructor(
         }
     }
 
-    fun setRetryFunction(retryFunction: Function<Unit>) {
+    fun setRetryFunction(retryFunction: (()->Unit)?) {
         mRetryFunction = retryFunction
     }
 
