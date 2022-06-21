@@ -35,7 +35,7 @@ abstract class SourceObserverView @JvmOverloads constructor(
         mRetryFunction = retryFunction
     }
 
-    fun getRetryFunction(): Function<Unit>? = mRetryFunction
+    fun getRetryFunction(): (()->Unit)? = mRetryFunction
 
     /**
      * [retryResource] [loadingResource] [emptyResource] 被填充时调用
