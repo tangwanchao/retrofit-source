@@ -16,6 +16,7 @@ fun <T> LiveData<Source<IPagination<T>>>.paginationRefreshObserver(
     owner: LifecycleOwner,
     refreshLayout: SmartRefreshLayout,
     observerView: ISourceObserverView,
+    emptyMessage: String = "暂无数据",
     block: (list: List<T>) -> Unit
 ) = this.observe(owner) { source ->
     when (source) {
@@ -25,14 +26,14 @@ fun <T> LiveData<Source<IPagination<T>>>.paginationRefreshObserver(
         }
         is ErrorSource -> {
             refreshLayout.finishRefresh(false)
-            observerView.showSourceErrorView()
+            observerView.showSourceErrorView(source.message)
         }
         is SuccessSource -> {
             val pagination = source.data
             refreshLayout.finishRefresh(0, true, pagination.noMoreData())
             val data = pagination.getPagingDataList()
             if (data.isEmpty()) {
-                observerView.showSourceEmptyView()
+                observerView.showSourceEmptyView(emptyMessage)
             } else {
                 refreshLayout.setEnableLoadMore(true)
                 observerView.showSourceSuccessView()

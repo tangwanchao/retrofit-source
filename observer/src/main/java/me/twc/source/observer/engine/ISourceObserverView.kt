@@ -16,12 +16,12 @@ interface ISourceObserverView {
     /**
      * 展示异常 ui
      */
-    fun showSourceErrorView()
+    fun showSourceErrorView(message: String = "网络或服务器异常")
 
     /**
      * 展示空数据 ui
      */
-    fun showSourceEmptyView()
+    fun showSourceEmptyView(message: String = "暂无数据")
 
     /**
      * 展示成功 ui

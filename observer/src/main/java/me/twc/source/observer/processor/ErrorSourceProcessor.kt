@@ -17,7 +17,7 @@ interface ErrorSourceProcessor {
 
 object SimpleContentErrorSourceProcessor : ErrorSourceProcessor {
     override fun <T> process(view: ISourceObserverView, error: ErrorSource): Pair<Boolean, T?> {
-        view.showSourceErrorView()
+        view.showSourceErrorView(error.message)
         return true to null
     }
 }

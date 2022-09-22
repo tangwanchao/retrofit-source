@@ -52,11 +52,11 @@ abstract class SourceObserverView @JvmOverloads constructor(
         showLoading()
     }
 
-    override fun showSourceErrorView() {
+    override fun showSourceErrorView(message: String) {
         showRetry()
     }
 
-    override fun showSourceEmptyView() {
+    override fun showSourceEmptyView(message: String) {
         showEmpty()
     }
 
