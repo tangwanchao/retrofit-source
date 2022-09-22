@@ -56,6 +56,10 @@ abstract class SourceObserverView @JvmOverloads constructor(
         showRetry()
     }
 
+    override fun showSourceEmptyView() {
+        showEmpty()
+    }
+
     override fun showSourceSuccessView() {
         showContent()
     }

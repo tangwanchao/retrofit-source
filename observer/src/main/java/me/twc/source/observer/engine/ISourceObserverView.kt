@@ -19,6 +19,11 @@ interface ISourceObserverView {
     fun showSourceErrorView()
 
     /**
+     * 展示空数据 ui
+     */
+    fun showSourceEmptyView()
+
+    /**
      * 展示成功 ui
      */
     fun showSourceSuccessView()
