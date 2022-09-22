@@ -4,6 +4,7 @@ import me.twc.source.ErrorSource
 import me.twc.source.LoadingSource
 import me.twc.source.Source
 import me.twc.source.SuccessSource
+import me.twc.source.observer.ISourceObserverView
 import me.twc.source.observer.widget.SourceObserverView
 
 /**
@@ -13,7 +14,7 @@ import me.twc.source.observer.widget.SourceObserverView
  * 配合 [SourceObserverView] 使用
  */
 interface SourceProcessor {
-    fun <T> process(view: SourceObserverView, source: Source<T>): Pair<Boolean, T?>
+    fun <T> process(view: ISourceObserverView, source: Source<T>): Pair<Boolean, T?>
 }
 
 object GlobalContentSourceProcessor : SourceProcessor {
@@ -36,7 +37,7 @@ object GlobalContentSourceProcessor : SourceProcessor {
         mSuccess = success
     }
 
-    override fun <T> process(view: SourceObserverView, source: Source<T>): Pair<Boolean, T?> {
+    override fun <T> process(view: ISourceObserverView, source: Source<T>): Pair<Boolean, T?> {
         return when (source) {
             is LoadingSource -> mLoading.process<Nothing>(view, source)
             is ErrorSource -> mError.process<Nothing>(view, source)
@@ -64,7 +65,7 @@ object GlobalLoadingSourceProcessor : SourceProcessor {
         mSuccess = success
     }
 
-    override fun <T> process(view: SourceObserverView, source: Source<T>): Pair<Boolean, T?> {
+    override fun <T> process(view: ISourceObserverView, source: Source<T>): Pair<Boolean, T?> {
         return when (source) {
             is LoadingSource -> mLoading.process<Nothing>(view, source)
             is ErrorSource -> mError.process<Nothing>(view, source)
@@ -78,7 +79,7 @@ class LocalSourceProcessor(
     private val mError: ErrorSourceProcessor? = null,
     private val mSuccess: SuccessSourceProcessor? = null
 ) : SourceProcessor {
-    override fun <T> process(view: SourceObserverView, source: Source<T>): Pair<Boolean, T?> {
+    override fun <T> process(view: ISourceObserverView, source: Source<T>): Pair<Boolean, T?> {
         return when (source) {
             is LoadingSource -> mLoading?.process<Nothing>(view, source) ?: Pair(false, null)
             is ErrorSource -> mError?.process<Nothing>(view, source) ?: Pair(false, null)

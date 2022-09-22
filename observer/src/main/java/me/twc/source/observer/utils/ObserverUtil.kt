@@ -5,8 +5,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import me.twc.source.ErrorSource
 import me.twc.source.Source
+import me.twc.source.observer.ISourceObserverView
 import me.twc.source.observer.processor.*
-import me.twc.source.observer.widget.SourceObserverView
 
 /**
  * @author 唐万超
@@ -15,7 +15,7 @@ import me.twc.source.observer.widget.SourceObserverView
 @MainThread
 fun <T> LiveData<Source<T>>.contentObserver(
     owner: LifecycleOwner,
-    view: SourceObserverView,
+    view: ISourceObserverView,
     processorList: MutableList<SourceProcessor> = mutableListOf(),
     block: (t: T) -> Unit
 ) {
@@ -28,12 +28,12 @@ fun <T> LiveData<Source<T>>.contentObserver(
 @MainThread
 fun <T> LiveData<Source<T>>.contentObserverWithError(
     owner: LifecycleOwner,
-    view: SourceObserverView,
-    processError: (view: SourceObserverView, error: ErrorSource) -> Boolean,
+    view: ISourceObserverView,
+    processError: (view: ISourceObserverView, error: ErrorSource) -> Boolean,
     block: (t: T) -> Unit
 ) {
     val errorSourceProcessor = object : ErrorSourceProcessor {
-        override fun <T> process(view: SourceObserverView, error: ErrorSource): Pair<Boolean, T?> {
+        override fun <T> process(view: ISourceObserverView, error: ErrorSource): Pair<Boolean, T?> {
             return processError(view, error) to null
         }
     }
@@ -44,7 +44,7 @@ fun <T> LiveData<Source<T>>.contentObserverWithError(
 @MainThread
 fun <T> LiveData<Source<T>>.loadingObserver(
     owner: LifecycleOwner,
-    view: SourceObserverView,
+    view: ISourceObserverView,
     processorList: MutableList<SourceProcessor> = mutableListOf(),
     block: (t: T) -> Unit
 ) {
@@ -57,12 +57,12 @@ fun <T> LiveData<Source<T>>.loadingObserver(
 @MainThread
 fun <T> LiveData<Source<T>>.loadingObserverWithError(
     owner: LifecycleOwner,
-    view: SourceObserverView,
-    processError: (view: SourceObserverView, error: ErrorSource) -> Boolean,
+    view: ISourceObserverView,
+    processError: (view: ISourceObserverView, error: ErrorSource) -> Boolean,
     block: (t: T) -> Unit
 ) {
     val errorSourceProcessor = object : ErrorSourceProcessor {
-        override fun <T> process(view: SourceObserverView, error: ErrorSource): Pair<Boolean, T?> {
+        override fun <T> process(view: ISourceObserverView, error: ErrorSource): Pair<Boolean, T?> {
             return processError(view, error) to null
         }
     }

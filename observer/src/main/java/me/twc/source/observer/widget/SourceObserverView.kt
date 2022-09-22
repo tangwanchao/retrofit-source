@@ -6,6 +6,7 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import com.github.nukc.stateview.StateView
 import me.twc.source.Source
+import me.twc.source.observer.ISourceObserverView
 import me.twc.source.observer.processor.*
 
 /**
@@ -19,9 +20,9 @@ abstract class SourceObserverView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : StateView(context, attrs, defStyleAttr) {
+) : StateView(context, attrs, defStyleAttr), ISourceObserverView {
 
-    private var mRetryFunction: (()->Unit)? = null
+    private var mRetryFunction: (() -> Unit)? = null
 
     init {
         onInflateListener = object : OnInflateListener {
@@ -31,11 +32,11 @@ abstract class SourceObserverView @JvmOverloads constructor(
         }
     }
 
-    fun setRetryFunction(retryFunction: (()->Unit)?) {
+    fun setRetryFunction(retryFunction: (() -> Unit)?) {
         mRetryFunction = retryFunction
     }
 
-    fun getRetryFunction(): (()->Unit)? = mRetryFunction
+    fun getRetryFunction(): (() -> Unit)? = mRetryFunction
 
     /**
      * [retryResource] [loadingResource] [emptyResource] 被填充时调用
@@ -48,16 +49,17 @@ abstract class SourceObserverView @JvmOverloads constructor(
         layoutResourceView: View
     )
 
-    fun <T> observer(
-        source: Source<T>,
-        processorList: MutableList<SourceProcessor> = mutableListOf()
-    ): T? {
-        for (processor in processorList) {
-            val (success, t) = processor.process(this, source)
-            if (success) {
-                return t
-            }
-        }
-        return null
+    //<editor-fold desc="ISourceObserverView">
+    override fun showSourceLoadingView() {
+        showLoading()
     }
+
+    override fun showSourceErrorView() {
+        showRetry()
+    }
+
+    override fun showSourceSuccessView() {
+        showContent()
+    }
+    //</editor-fold>
 }
