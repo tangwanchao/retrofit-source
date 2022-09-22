@@ -1,8 +1,7 @@
 package me.twc.source.observer.processor
 
 import me.twc.source.LoadingSource
-import me.twc.source.observer.ISourceObserverView
-import me.twc.source.observer.widget.SourceObserverView
+import me.twc.source.observer.engine.ISourceObserverView
 
 /**
  * @author 唐万超

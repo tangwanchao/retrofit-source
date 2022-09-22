@@ -5,9 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.LayoutRes
 import com.github.nukc.stateview.StateView
-import me.twc.source.Source
-import me.twc.source.observer.ISourceObserverView
-import me.twc.source.observer.processor.*
+import me.twc.source.observer.engine.ISourceObserverView
 
 /**
  * @author 唐万超

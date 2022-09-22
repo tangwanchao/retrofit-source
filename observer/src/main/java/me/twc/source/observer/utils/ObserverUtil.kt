@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import me.twc.source.ErrorSource
 import me.twc.source.Source
-import me.twc.source.observer.ISourceObserverView
+import me.twc.source.observer.engine.ISourceObserverView
 import me.twc.source.observer.processor.*
 
 /**
