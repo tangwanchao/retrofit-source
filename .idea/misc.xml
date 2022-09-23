@@ -5,6 +5,18 @@
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/act_main.xml" value="0.3242753623188406" />
+        <entry key="app/src/main/res/layout/act_source_observer_view2.xml" value="0.3242753623188406" />
+        <entry key="observer/src/main/res/drawable/source_observer_bg_error_button.xml" value="0.1915" />
+        <entry key="observer/src/main/res/layout/source_observer_layout_empty.xml" value="0.3242753623188406" />
+        <entry key="observer/src/main/res/layout/source_observer_layout_error.xml" value="0.55" />
+        <entry key="observer/src/main/res/layout/source_observer_layout_loading.xml" value="0.3242753623188406" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
