@@ -75,7 +75,7 @@ open class SourceObserverView2 @JvmOverloads constructor(
         if (mErrorLayout == null) {
             mErrorLayout = mLayoutInflater.inflate(getErrorLayoutRes(), this, false)
             mErrorLayout!!.setBackgroundColor(mErrorBackground)
-            mErrorLayout!!.setOnClickListener {
+            mErrorLayout!!.findViewById<View>(R.id.tv_network_error_reload).setOnClickListener {
                 mReloadFun?.invoke()
             }
             addView(mErrorLayout)
