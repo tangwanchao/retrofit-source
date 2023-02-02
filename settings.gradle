@@ -3,3 +3,4 @@ include ':app'
 rootProject.name = "RetrofitSource"
 include ':observer'
 include ':paging'
+include ':download'
