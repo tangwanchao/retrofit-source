@@ -1,5 +1,6 @@
 package me.twc.source.download
 
+import androidx.annotation.MainThread
 import okhttp3.ResponseBody
 import java.io.File
 
@@ -31,11 +32,13 @@ interface DownloadCallback {
     /**
      * 开始下载
      */
+    @MainThread
     fun onStart() {}
 
     /**
      * 下载中
      */
+    @MainThread
     fun onDownload(downloadLength: Int, totalLength: Long) {}
 
     /**

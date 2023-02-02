@@ -26,7 +26,9 @@ class Downloader(
             bs = responseBody.byteStream()
             outputFile = callback.genSaveFile() ?: genSaveFile()
             fos = FileOutputStream(outputFile)
-            callback.onStart()
+            withContext(Dispatchers.Main){
+                callback.onStart()
+            }
             val totalLength = responseBody.contentLength()
             var downloadLength = 0
             val buffer = ByteArray(8 * 1024)
