@@ -34,7 +34,9 @@ class Downloader(
             while (bytes >= 0) {
                 fos.write(buffer, 0, bytes)
                 downloadLength += bytes
-                callback.onDownload(downloadLength, totalLength)
+                withContext(Dispatchers.Main){
+                    callback.onDownload(downloadLength, totalLength)
+                }
                 bytes = bs.read(buffer)
             }
         } catch (th: Throwable) {
