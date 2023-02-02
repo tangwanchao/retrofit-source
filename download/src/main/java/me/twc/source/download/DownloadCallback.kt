@@ -21,7 +21,7 @@ interface DownloadCallback {
      * ): ResponseBody
      *
      */
-    fun genResponseBody(): ResponseBody
+    suspend fun genResponseBody(): ResponseBody
 
     /**
      * 下载后文件保存位置
