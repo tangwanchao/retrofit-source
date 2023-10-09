@@ -14,6 +14,7 @@ import me.twc.source.observer.engine.ISourceObserverView
  * 1.子类可以在构造函数设置 [retryResource] [loadingResource] [emptyResource] 或者通过布局文件设置
  * 2.子类可能需要实现 [onLayoutInflated] 用来设置相关 view
  */
+@Deprecated("请使用 SourceObserverView2")
 abstract class SourceObserverView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
