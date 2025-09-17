@@ -48,6 +48,4 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
 
     implementation project(":source")
-    implementation project(":observer")
-    implementation project(":paging")
 }

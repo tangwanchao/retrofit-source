@@ -1,8 +1,8 @@
 package me.twc.source
 
-import android.util.Log
 import android.util.MalformedJsonException
 import com.google.gson.JsonParseException
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import me.twc.source.util.logD
@@ -31,7 +31,7 @@ import retrofit2.HttpException
  */
 suspend fun <T> httpContext(
     block: suspend () -> ISource<T>
-): Source<T> = withContext(Dispatchers.IO) {
+): ResultSource<T> = withContext(Dispatchers.IO) {
     return@withContext httpSource(block)
 }
 
@@ -40,29 +40,28 @@ suspend fun <T> httpContext(
  */
 suspend fun <T> httpSource(
     block: suspend () -> ISource<T>
-): Source<T> = try {
-    block.invoke().toSource()
+): ResultSource<T> = try {
+    block().toSource()
 } catch (th: Throwable) {
     th.toSource()
 }
 
-private fun <T> Throwable.toSource(): Source<T> {
-    logD("RetrofitSource Throwable.toSource",th = this)
+fun <T> Throwable.toSource(): ResultSource<T> {
+    logD("RetrofitSource Throwable.toSource", th = this)
     return when (this) {
         is HttpException -> {
             if (this.code() in 400 until 500) {
-                "客户端异常".errorSource()
+                "客户端异常"
             } else {
-                "服务端异常".errorSource()
+                "服务端异常"
             }
         }
+
         is KotlinNullPointerException,
         is JsonParseException,
-        is MalformedJsonException -> {
-            "服务端数据异常".errorSource()
-        }
-        else -> {
-            "网络异常".errorSource()
-        }
-    }
+        is MalformedJsonException -> "服务端数据异常"
+
+        is CancellationException -> ""
+        else -> "网络异常"
+    }.toErrorSource(th = this)
 }

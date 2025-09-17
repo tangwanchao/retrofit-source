@@ -8,8 +8,10 @@ import android.util.Log
  */
 private const val TAG = "RetrofitSource"
 
+var SOURCE_LOG_ENABLE = false
+
 fun canLog(level: Int): Boolean {
-    return Log.isLoggable("RetrofitSource", level)
+    return SOURCE_LOG_ENABLE || Log.isLoggable("RetrofitSource", level)
 }
 
 fun logD(message: String, th: Throwable? = null) {
