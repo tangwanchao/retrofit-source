@@ -11,13 +11,15 @@ import kotlinx.coroutines.delay
 
 suspend fun <T> forceHttpSource(
     delay: Long = 1000L,
+    onError: ((source: ErrorSource) -> Unit)? = null,
     block: suspend () -> ISource<T>
-): ResultSource<T> = forceHttp(runInIo = false, delay, block)
+): ResultSource<T> = forceHttp(runInIo = false, delay, onError, block)
 
 suspend fun <T> forceHttpContext(
     delay: Long = 1000L,
+    onError: ((source: ErrorSource) -> Unit)? = null,
     block: suspend () -> ISource<T>
-): ResultSource<T> = forceHttp(runInIo = true, delay, block)
+): ResultSource<T> = forceHttp(runInIo = true, delay, onError, block)
 
 
 /**
@@ -28,12 +30,16 @@ suspend fun <T> forceHttpContext(
 private suspend fun <T> forceHttp(
     runInIo: Boolean,
     delay: Long = 1000L,
+    onError: ((source: ErrorSource) -> Unit)? = null,
     block: suspend () -> ISource<T>
 ): ResultSource<T> {
     while (true) {
         val source = if (runInIo) httpContext(block) else httpSource(block)
         if (source is SuccessSource<T>) {
             return source
+        }
+        if(onError != null && source is ErrorSource){
+            onError(source)
         }
         delay(delay)
     }
