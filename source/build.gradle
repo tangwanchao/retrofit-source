@@ -48,9 +48,9 @@ afterEvaluate {
                 from components.release
                 artifact androidSourcesJar
                 // You can then customize attributes of the publication as shown below.
-                groupId = 'com.github.tangwanchao'
-                artifactId = 'retrofit-source'
-                version = '3.0.0'
+                groupId = 'me.twc'
+                artifactId = 'source'
+                version = '1.0.0'
             }
         }
     }
